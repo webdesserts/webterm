@@ -1,0 +1,7 @@
+{
+  "url": "dat://34cbbc7e8bbdfbb963fab1d103cf86f87ff97776b0ae1c8ca05d1755fe1e1fdb/",
+  "title": "WebTerm",
+  "description": "",
+  "web_root": "/build",
+  "fallback_page": "/index.html"
+}
