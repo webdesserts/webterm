@@ -1,10 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  border-top: 2px solid var(--grey);
-  padding: 16px;
-`
+import { InputIndicator } from './indicators'
 
 const CenteredContent = styled.div`
   margin: 0 auto;
@@ -14,11 +10,7 @@ const CenteredContent = styled.div`
   grid-template-rows: auto auto;
   grid-template-columns: 24px 1fr;
   grid-gap: 8px 8px;
-`
-
-const Indicator = styled.div`
-  font-size: 25px;
-  font-weight: 600;
+  padding: 16px;
 `
 
 const Location = styled.div`
@@ -30,16 +22,16 @@ const Input = styled.input.attrs({ type: 'text' })`
   background-color: transparent;
   border: none;
   color: var(--white);
-  font-size: inherit;
+  font: inherit;
 `
 
 export function Prompt() {
   return (
-    <Wrapper>
+    <React.Fragment>
       <CenteredContent>
         <Location>//</Location>
-        <Indicator>»</Indicator><Input value={'cd code'}/>
+        <InputIndicator /><Input value={'cd code'}/>
       </CenteredContent>
-    </Wrapper>
+    </React.Fragment>
   );
 }
