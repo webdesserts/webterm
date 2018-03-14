@@ -7,7 +7,6 @@ import './global.styles.jsx';
 const Terminal = styled.main`
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: 16px;
   height: 100%;
 `;
 

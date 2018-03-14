@@ -12,6 +12,7 @@ injectGlobal`
     --gold: #FFC24D;
     /* font-family: "Helvetica Neue", "Arial Nova", Helvetica, Arial, sans-serif; */
     font-family: "Courier", monospace;
+    font-size: 16px;
     line-height: 1.3;
     letter-spacing: .5px;
 
