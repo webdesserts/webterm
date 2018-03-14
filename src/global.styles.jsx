@@ -4,8 +4,10 @@ injectGlobal`
   :root {
     --pitchblack: #0E100E;
     --black: #151715;
-    --grey: #1E1F1D;
-    --magenta: #D7196C;
+    --grey: #4F4F4F;
+    --light-grey: #BDBDBD;
+    --white: #F2F2F2;
+    --magenta: #FF368E;
     --violet: #4D5EFF;
     --gold: #FFC24D;
     /* font-family: "Helvetica Neue", "Arial Nova", Helvetica, Arial, sans-serif; */
@@ -14,7 +16,7 @@ injectGlobal`
     letter-spacing: .5px;
 
     background-color: var(--black);
-    color: var(--magenta);
+    color: var(--white);
   }
 
   *, *::before, *::after {
