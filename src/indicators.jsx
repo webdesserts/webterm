@@ -1,11 +1,13 @@
-import React from 'react'
 import styled from 'styled-components'
 
-const Indicator = styled.div`
-  font-size: 25px;
+const Indicator = styled.span`
+  font-family: 'Courier New';
+  font-size: 20px;
+  width: 1rem;
+  line-height: 1rem;
   font-weight: 600;
-  color: var(--grey);
+  color: var(--light-grey);
 `
 
-export const InputIndicator = () => <Indicator>»</Indicator>
-export const OutputIndicator = () => <Indicator>«</Indicator>
+export const InputIndicator = Indicator.extend.attrs({ children: '»' })``
+export const OutputIndicator = Indicator.extend.attrs({ children: '«' })``
