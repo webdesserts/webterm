@@ -25,15 +25,21 @@ const Input = styled.input.attrs({ type: 'text' })`
   font: inherit;
 `;
 
-export function Prompt() {
+export function Prompt({ onSubmit }) {
   let location = '//';
-  let input = 'cd code';
+
+  function onKeyDown(event) {
+    if (event.key === 'Enter') {
+      onSubmit(event.target.value);
+    }
+  }
+
   return (
     <React.Fragment>
       <CenteredContent>
         <Location>{location}</Location>
         <InputIndicator />
-        <Input value={input} />
+        <Input onKeyDown={onKeyDown} />
       </CenteredContent>
     </React.Fragment>
   );

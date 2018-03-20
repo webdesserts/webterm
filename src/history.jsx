@@ -59,8 +59,8 @@ export function OutputValue({ output }) {
   if (Array.isArray(output)) {
     return (
       <OutputList>
-        {output.map(item => (
-          <li>
+        {output.map((item, i) => (
+          <li key={i}>
             <OutputValue output={item} />
           </li>
         ))}
@@ -68,6 +68,8 @@ export function OutputValue({ output }) {
     );
   } else if (typeof output === 'string' || output === null) {
     return output;
+  } else if (output instanceof Error) {
+    return output.toString();
   } else {
     throw new Error(
       'we have not implemented rendering for this type of output yet',
@@ -84,7 +86,7 @@ export function History({ history }) {
     >
       <CenteredContent>
         {history.map(result => (
-          <CommandResult key={result.timestamp} result={result} />
+          <CommandResult key={result.timestamp.getTime()} result={result} />
         ))}
       </CenteredContent>
     </HistoryWrapper>
