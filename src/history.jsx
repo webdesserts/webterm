@@ -1,71 +1,17 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import * as indicators from './indicators';
-
-const HistoryWrapper = styled.div`
-  overflow: auto;
-  padding-top: 100px;
-  display: grid;
-`;
-
-const CenteredContent = styled.div`
-  margin: 0 auto;
-  display: grid;
-  max-width: 600px;
-  width: 100%;
-  grid-row-gap: 16px;
-  align-content: end;
-  padding: 16px;
-`;
-
-const Result = styled.div`
-  display: grid;
-  grid-template-columns: min-content minmax(40%, min-content) auto;
-  grid-gap: 8px 8px;
-  align-items: top;
-  line-height: 1.2rem;
-`;
-
-const Input = styled.code`
-  color: var(--magenta);
-  word-wrap: break-word;
-  overflow: hidden;
-`;
-const Location = styled.span`
-  color: var(--light-grey);
-  margin-left: auto;
-`;
-
-const OutputList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-  }
-`;
-
-const Output = styled.div`
-  background-color: var(--pitch-black);
-  border-radius: 2px;
-  padding: 16px;
-  grid-column: span 3;
-
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-gap: 8px;
-`;
+import { OutputIndicator } from './indicators';
+import * as el from './history.styles';
 
 export function OutputValue({ output }) {
   if (Array.isArray(output)) {
     return (
-      <OutputList>
+      <el.OutputList>
         {output.map((item, i) => (
           <li key={i}>
             <OutputValue output={item} />
           </li>
         ))}
-      </OutputList>
+      </el.OutputList>
     );
   } else if (typeof output === 'string' || output === null) {
     return output;
@@ -80,36 +26,32 @@ export function OutputValue({ output }) {
 
 export function History({ history }) {
   return (
-    <HistoryWrapper
+    <el.HistoryWrapper
       innerRef={ref => {
         if (ref) ref.scrollTop = ref.scrollHeight;
       }}
     >
-      <CenteredContent>
+      <el.CenteredContent>
         {history.map(result => (
           <CommandResult key={result.timestamp.getTime()} result={result} />
         ))}
-      </CenteredContent>
-    </HistoryWrapper>
+      </el.CenteredContent>
+    </el.HistoryWrapper>
   );
 }
 
-const InputIndicator = styled(indicators.InputIndicator)`
-  margin-left: 16px;
-`;
-
 export function CommandResult({ result }) {
   return (
-    <Result>
-      <InputIndicator />
-      <Input>{result.input}</Input>
-      <Location>{result.location}</Location>
+    <el.Result>
+      <el.InputIndicator />
+      <el.Input>{result.input}</el.Input>
+      <el.Location>{result.location}</el.Location>
       {result.output ? (
-        <Output>
-          <indicators.OutputIndicator />
+        <el.Output>
+          <OutputIndicator />
           <OutputValue output={result.output} />
-        </Output>
+        </el.Output>
       ) : null}
-    </Result>
+    </el.Result>
   );
 }
