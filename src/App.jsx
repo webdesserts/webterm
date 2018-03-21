@@ -26,7 +26,7 @@ class App extends Component {
         <el.Titlebar>dat://dev.webdesserts.com</el.Titlebar>
         <History history={this.state.history} />
         <el.Seperator />
-        <Prompt onSubmit={this.onSubmit} />
+        <Prompt history={this.state.history} onSubmit={this.onSubmit} />
       </el.Terminal>
     );
   }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { InputIndicator } from './indicators';
 
@@ -25,23 +26,73 @@ const Input = styled.input.attrs({ type: 'text' })`
   font: inherit;
 `;
 
-export function Prompt({ onSubmit }) {
-  let location = '//';
+export class Prompt extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+    history: PropTypes.array,
+  };
 
-  function onKeyDown(event) {
-    if (event.key === 'Enter') {
-      onSubmit(event.target.value);
-      event.target.value = '';
-    }
+  static defaultProps = {
+    onSubmit: () => {},
+  };
+
+  state = {
+    value: '',
+    historyIndex: null,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ historyIndex: nextProps.history.length });
   }
 
-  return (
-    <React.Fragment>
-      <CenteredContent>
-        <Location>{location}</Location>
-        <InputIndicator />
-        <Input onKeyDown={onKeyDown} />
-      </CenteredContent>
-    </React.Fragment>
-  );
+  onKeyDown = event => {
+    let { history, onSubmit } = this.props;
+    let { value, historyIndex: currentHistoryIndex } = this.state;
+
+    if (event.key === 'Enter') {
+      onSubmit(value);
+      this.setState({ value: '' });
+    } else if (event.key === 'ArrowUp') {
+      let historyIndex = currentHistoryIndex - 1;
+      let command = history[historyIndex];
+      if (command) {
+        this.setState({
+          historyIndex,
+          value: command.input,
+        });
+      }
+    } else if (event.key === 'ArrowDown') {
+      let historyIndex = currentHistoryIndex + 1;
+      let command = history[historyIndex];
+      if (command) {
+        this.setState({
+          historyIndex,
+          value: command.input,
+        });
+      }
+    }
+  };
+
+  onChange = event => {
+    let { value } = event.target;
+    this.setState({ value });
+  };
+
+  render() {
+    let location = '//';
+
+    return (
+      <React.Fragment>
+        <CenteredContent>
+          <Location>{location}</Location>
+          <InputIndicator />
+          <Input
+            value={this.state.value}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+          />
+        </CenteredContent>
+      </React.Fragment>
+    );
+  }
 }
