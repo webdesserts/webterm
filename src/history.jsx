@@ -5,6 +5,7 @@ import * as indicators from './indicators';
 const HistoryWrapper = styled.div`
   overflow: auto;
   padding-top: 100px;
+  display: grid;
 `;
 
 const CenteredContent = styled.div`
