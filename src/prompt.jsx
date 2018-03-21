@@ -31,6 +31,7 @@ export function Prompt({ onSubmit }) {
   function onKeyDown(event) {
     if (event.key === 'Enter') {
       onSubmit(event.target.value);
+      event.target.value = '';
     }
   }
 
