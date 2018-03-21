@@ -5,8 +5,6 @@ export const Terminal = styled.main`
   grid-template-rows: 1fr auto auto;
   height: 100%;
   position: relative;
-  &::before {
-  }
 `;
 
 export const Seperator = styled.hr`
@@ -24,7 +22,7 @@ export const Titlebar = styled.div`
   position: absolute;
   pointer-events: none;
   background: no-repeat linear-gradient(to bottom, var(--black), transparent);
-  height: 200px;
+  height: 140px;
   width: 100%;
   top: 0;
   z-index: 1;
