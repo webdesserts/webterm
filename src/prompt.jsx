@@ -80,7 +80,8 @@ export class Prompt extends React.Component {
   };
 
   render() {
-    let { isHome, url, value } = this.props;
+    let { isHome, url } = this.props;
+    let { value } = this.state;
     return (
       <React.Fragment>
         <CenteredContent>
