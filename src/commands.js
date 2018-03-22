@@ -4,29 +4,26 @@ export async function execute(input) {
   const result = {
     timestamp: new Date(Date.now()),
     input,
+    command: null,
     location: '//',
   };
 
   const parsed_command = await parse(input);
   if (!parsed_command) return result;
+  let { name, args } = parsed_command;
 
-  const command = await commands.find(
-    command => parsed_command.name === command.name,
-  );
+  const command = await commands.find(command => name === command.name);
+
   if (!command)
     return Object.assign(result, { output: new Error('Unknown Command') });
 
-  const output = await command.execute();
-  return Object.assign(result, { output });
+  const output = await command.execute(args);
+  return Object.assign(result, { output, command: { name, args } });
 }
 
-//TODO: parse parameters and options(?)
 function parse(input) {
   if (typeof input !== 'string') return null;
-  const command = input.trim();
-  if (!command.length) return null;
-  return { name: command };
+  let [name, ...args] = input.trim().split(' ');
+  if (!name) return null;
+  return { name, args };
 }
-
-//TODO: validate command output
-//function validateOutput () {}

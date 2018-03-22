@@ -26,10 +26,16 @@ export const Result = styled.div`
 `;
 
 export const Input = styled.code`
-  color: var(--magenta);
+  color: var(--white);
   word-wrap: break-word;
   overflow: hidden;
 `;
+
+export const Command = styled.span`
+  color: var(--magenta);
+`;
+
+export const Args = styled.span``;
 
 export const Location = styled.span`
   color: var(--light-grey);

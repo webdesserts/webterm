@@ -44,7 +44,16 @@ export function CommandResult({ result }) {
   return (
     <el.Result>
       <el.InputIndicator />
-      <el.Input>{result.input}</el.Input>
+      <el.Input>
+        {result.command ? (
+          <React.Fragment>
+            <el.Command>{result.command.name}</el.Command>{' '}
+            <el.Args>{result.command.args.join(' ')}</el.Args>
+          </React.Fragment>
+        ) : (
+          result.input
+        )}
+      </el.Input>
       <el.Location>{result.location}</el.Location>
       {result.output ? (
         <el.Output>
