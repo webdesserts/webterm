@@ -19,12 +19,12 @@ export function OutputValue({ output }) {
     return output.toString();
   } else {
     throw new Error(
-      'we have not implemented rendering for this type of output yet',
+      `we have not implemented rendering for this type of output yet: ${typeof output}`,
     );
   }
 }
 
-export function History({ history }) {
+export function History({ home, history }) {
   return (
     <el.HistoryWrapper
       innerRef={ref => {
@@ -33,14 +33,19 @@ export function History({ history }) {
     >
       <el.CenteredContent>
         {history.map(result => (
-          <CommandResult key={result.timestamp.getTime()} result={result} />
+          <CommandResult
+            key={result.timestamp.getTime()}
+            result={result}
+            home={home}
+          />
         ))}
       </el.CenteredContent>
     </el.HistoryWrapper>
   );
 }
 
-export function CommandResult({ result }) {
+export function CommandResult({ home, result }) {
+  let isHome = home.origin === result.url.origin;
   return (
     <el.Result>
       <el.InputIndicator />
@@ -54,7 +59,10 @@ export function CommandResult({ result }) {
           result.input
         )}
       </el.Input>
-      <el.Location>{result.location}</el.Location>
+      <el.Location>
+        {isHome ? '~' : ''}
+        {result.url.pathname}
+      </el.Location>
       {result.output ? (
         <el.Output>
           <OutputIndicator />

@@ -30,6 +30,7 @@ export class Prompt extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func,
     history: PropTypes.array,
+    url: PropTypes.instanceOf(URL),
   };
 
   static defaultProps = {
@@ -79,15 +80,17 @@ export class Prompt extends React.Component {
   };
 
   render() {
-    let location = '//';
-
+    let { isHome, url, value } = this.props;
     return (
       <React.Fragment>
         <CenteredContent>
-          <Location>{location}</Location>
+          <Location>
+            {isHome ? '~' : ''}
+            {url.pathname}
+          </Location>
           <InputIndicator />
           <Input
-            value={this.state.value}
+            value={value}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}
           />

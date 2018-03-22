@@ -1,11 +1,11 @@
 import { commands } from './fixtures';
 
-export async function execute(input) {
+export async function execute(input, cwd) {
   const result = {
     timestamp: new Date(Date.now()),
     input,
     command: null,
-    location: '//',
+    url: cwd,
   };
 
   const parsed_command = await parse(input);
@@ -17,7 +17,8 @@ export async function execute(input) {
   if (!command)
     return Object.assign(result, { output: new Error('Unknown Command') });
 
-  const output = await command.execute(args);
+  const env = { archive: new window.DatArchive(cwd.origin), cwd };
+  const output = await command.execute(env, args);
   return Object.assign(result, { output, command: { name, args } });
 }
 
