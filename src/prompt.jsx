@@ -24,6 +24,12 @@ const Input = styled.input.attrs({ type: 'text' })`
   border: none;
   color: var(--white);
   font: inherit;
+  border-bottom: 1px solid var(--light-grey);
+  padding: 4px 8px;
+  &:focus {
+    outline: none;
+    border-color: var(--magenta);
+  }
 `;
 
 export class Prompt extends React.Component {
@@ -91,6 +97,8 @@ export class Prompt extends React.Component {
           </Location>
           <InputIndicator />
           <Input
+            autoFocus
+            placeholder="type your commands here..."
             value={value}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}

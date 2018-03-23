@@ -9,7 +9,6 @@ export const Terminal = styled.main`
 
 export const Seperator = styled.hr`
   border: none;
-  border-top: 2px solid var(--magenta);
   width: 100%;
   margin: 0;
 `;
