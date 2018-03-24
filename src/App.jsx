@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as commands from './commands';
+import { Environment } from './environment';
+import * as fixtures from './fixtures';
 import './global.styles.jsx';
 
 import { Prompt } from './prompt';
@@ -7,12 +9,17 @@ import { History } from './history';
 import * as el from './App.styles';
 
 class App extends Component {
+  onEnvironmentChange = env => {
+    this.setState({ env });
+  };
+
   state = {
     history: [],
-    home:
-      'dat://d4c7b6b2af5c361e63fd9cd6b02452b70a9a8b8612183a90c366b01ee6588631',
-    url:
-      'dat://d4c7b6b2af5c361e63fd9cd6b02452b70a9a8b8612183a90c366b01ee6588631',
+    env: new Environment({
+      home: fixtures.HOME,
+      cwd: fixtures.HOME,
+      onChange: this.onEnvironmentChange,
+    }),
   };
 
   constructor(props) {
@@ -21,26 +28,25 @@ class App extends Component {
   }
 
   async onSubmit(input) {
-    let { url } = this.state;
-    const result = await commands.execute(input, new URL(url));
+    let { env } = this.state;
+    const result = await commands.execute(input, env);
     const new_history = this.state.history.concat([result]);
     this.setState({ history: new_history });
   }
 
   render() {
-    let url = new URL(this.state.url);
-    let home = new URL(this.state.home);
-    let isHome = url.origin === home.origin;
+    let { env } = this.state;
+    let isHome = env.cwd.origin === env.home.origin;
     return (
       <el.Terminal>
-        <el.Titlebar>{url.origin}</el.Titlebar>
-        <History history={this.state.history} home={home} />
+        <el.Titlebar>{env.cwd.origin}</el.Titlebar>
+        <History history={this.state.history} home={env.home} />
         <el.Seperator />
         <Prompt
           history={this.state.history}
           onSubmit={this.onSubmit}
           isHome={isHome}
-          url={url}
+          url={env.cwd}
         />
       </el.Terminal>
     );
