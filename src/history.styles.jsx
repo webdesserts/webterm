@@ -19,10 +19,11 @@ export const CenteredContent = styled.div`
 
 export const Result = styled.div`
   display: grid;
-  grid-template-columns: min-content minmax(40%, min-content) auto;
+  grid-template-columns: min-content 2fr 1fr;
   grid-gap: 8px 8px;
   align-items: top;
   line-height: 1.2rem;
+  max-width: 100%;
 `;
 
 export const Input = styled.code`
@@ -53,6 +54,7 @@ export const Output = styled.div`
   border-radius: 2px;
   padding: 16px;
   grid-column: span 3;
+  overflow: auto;
 
   display: grid;
   grid-template-columns: auto 1fr;
