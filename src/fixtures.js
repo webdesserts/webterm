@@ -1,10 +1,6 @@
 export const HOME =
   'dat://d4c7b6b2af5c361e63fd9cd6b02452b70a9a8b8612183a90c366b01ee6588631';
 
-function quickOutput(name) {
-  return () => name;
-}
-
 export const commands = [
   { name: 'ls', execute: ls },
   { name: 'cd', execute: cd },
