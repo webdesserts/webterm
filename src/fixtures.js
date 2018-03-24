@@ -8,8 +8,8 @@ function quickOutput(name) {
 export const commands = [
   { name: 'ls', execute: ls },
   { name: 'cd', execute: cd },
-  { name: 'pwd', execute: quickOutput('//') },
-  { name: 'echo', execute: quickOutput('echo') },
+  { name: 'pwd', execute: pwd },
+  { name: 'echo', execute: echo },
 ];
 
 async function ls(env, args, opts = {}) {
@@ -40,4 +40,12 @@ async function cd(env, args, opts = {}) {
     env.setCWD(new URL(dir, env.cwd));
   }
   return undefined;
+}
+
+async function echo(env, args, opts = {}) {
+  return args.join(' ');
+}
+
+async function pwd(env, args, opts = {}) {
+  return env.cwd;
 }

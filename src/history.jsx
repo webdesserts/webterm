@@ -15,7 +15,7 @@ export function OutputValue({ output }) {
     );
   } else if (typeof output === 'string' || output === null) {
     return output;
-  } else if (output instanceof Error) {
+  } else if (output instanceof Error || output instanceof URL) {
     return output.toString();
   } else {
     throw new Error(
