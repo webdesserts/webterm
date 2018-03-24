@@ -10,7 +10,6 @@ export class Environment {
 
   async setCWD(dir) {
     let onChange = this._onChange;
-    console.log(onChange);
     let env = new Environment({
       home: this.home,
       cwd: dir,
