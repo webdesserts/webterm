@@ -1,5 +1,5 @@
 export const HOME =
-  'dat://d4c7b6b2af5c361e63fd9cd6b02452b70a9a8b8612183a90c366b01ee6588631';
+  'dat://87ed2e3b160f261a032af03921a3bd09227d0a4cde73466c17114816cae43336/';
 
 export const commands = [
   { name: 'ls', execute: ls },
