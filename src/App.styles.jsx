@@ -26,3 +26,5 @@ export const Titlebar = styled.div`
   top: 0;
   z-index: 1;
 `;
+
+export const Loading = styled.div``;

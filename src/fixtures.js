@@ -1,5 +1,6 @@
-export const HOME =
-  'dat://87ed2e3b160f261a032af03921a3bd09227d0a4cde73466c17114816cae43336/';
+export const HOME = 'dat://home-webdesserts.hashbase.io';
+export const WEBTERM =
+  'dat://4e50e4fbbc6ccf02dcb056834e335ed821f9dbaee85a7880921996e43122f355/';
 
 export const commands = [
   { name: 'ls', execute: ls },
