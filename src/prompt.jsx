@@ -45,7 +45,7 @@ export class Prompt extends React.Component {
 
   state = {
     value: '',
-    historyIndex: null,
+    historyIndex: -1,
   };
 
   componentWillReceiveProps(nextProps) {

@@ -3,6 +3,6 @@
     "dat://4e50e4fbbc6ccf02dcb056834e335ed821f9dbaee85a7880921996e43122f355",
   "title": "WebTerm",
   "description": "",
-  "web_root": "/build",
+  "web_root": "/app",
   "fallback_page": "/index.html"
 }

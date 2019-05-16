@@ -1,7 +1,8 @@
 onmessage = async function runCommand(e) {
-  let [{ env, args, commandStr }] = e.data;
+  let { env, args, commandStr } = e.data;
 
-  // should we isolate this command's variable scope via an iife? Do we even need to?
+  console.log(commandStr);
+  // is there a way to isolate this command's variable scope? iife?
   eval(commandStr);
 
   if (command && typeof command === 'function') {

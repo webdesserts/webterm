@@ -14,9 +14,12 @@ export class Environment {
   }
 
   constructor({ home, cwd, commands, onChange }) {
-    this.home = home;
-    this.cwd = cwd;
+    let home_url = new URL(home);
+    let cwd_url = new URL(cwd);
+    this.home = Object.freeze(home_url);
+    this.cwd = Object.freeze(cwd_url);
     this.commands = Object.freeze(commands);
+    this.archive = new window.DatArchive(cwd_url.origin);
     this._onChange = onChange;
   }
 

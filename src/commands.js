@@ -1,17 +1,16 @@
-import { WEBTERM } from './fixtures';
-
-export async function loadTermManifest(url) {
+export async function loadTermManifest(location) {
+  let url = new URL(location);
   let file_url = new URL('./env/term.json', url.origin);
   let response = await fetch(file_url);
   return JSON.parse(await response.text());
 }
 
-export async function loadCommands(manifest, env_url) {
+export async function loadCommands(manifest, manifest_url) {
   let map = new Map();
+
   for (let command of manifest.commands) {
-    let url = new URL(command, env_url);
+    let url = new URL(command, manifest_url);
     let { filename } = fileDetails(url);
-    console.log('setting command:', filename, url);
     map.set(filename, url);
   }
 
@@ -36,12 +35,12 @@ export async function executeCommand(input, env) {
   if (!parsed_command) return result;
   let { name, args } = parsed_command;
 
-  const command_url = await env.commands.get(name);
+  const command = await env.commands.get(name);
 
-  if (!command_url)
+  if (!command)
     return Object.assign(result, { output: new Error('Unknown Command') });
 
-  const output = await launchCommandWorker(command_url, env, args);
+  const output = await launchCommandWorker(env, args);
   return Object.assign(result, { output, command: { name, args } });
 }
 
@@ -54,13 +53,13 @@ function parse(input) {
 
 async function launchCommandWorker(url, env, args) {
   let worker = new Worker('/command-worker.js');
-  let response = await fetch(url.toString());
+  let response = await fetch(url.pathname);
   let commandStr = await response.text();
   return new Promise((resolve, reject) => {
-    worker.postMessage([{ args, commandStr }]);
+    worker.postMessage({ env, args, commandStr });
     worker.onmessage = function(e) {
       console.log('data:', e.data);
-      resolve(e.data.output);
+      resolve(e.data.result.output);
     };
   });
 }

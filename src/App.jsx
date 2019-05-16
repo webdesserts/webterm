@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { loadCommands, loadTermManifest, executeCommand } from './commands';
 import { Environment } from './environment';
 import * as fixtures from './fixtures';
-import './global.styles.jsx';
+import './global.styles';
 
 import { Prompt } from './prompt';
 import { History } from './history';
 import * as el from './App.styles';
 
-class App extends Component {
+class App extends React.Component {
   onEnvironmentChange = env => {
     this.setState({ env });
   };
 
   state = {
-    history: [],
+    history: new Array(),
     env: new Environment({
       home: fixtures.HOME,
       cwd: fixtures.HOME,
@@ -24,9 +24,9 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    let url = new URL(window.location);
+    let url = new URL(window.location.href);
     let manifest = await loadTermManifest(url);
-    let commands = await loadCommands(manifest, new URL('env/', url));
+    let commands = await loadCommands(manifest, new URL('./env/', url));
     let env = Environment.copy(this.state.env, { commands });
     this.setState({ env });
   }
@@ -40,20 +40,18 @@ class App extends Component {
 
   render() {
     let { env } = this.state;
-    let cwd = new URL(env.cwd);
-    let home = new URL(env.home);
-    let isHome = cwd.origin === home.origin;
+    let isHome = env.cwd.origin === env.home.origin;
     if (!env.commands.size) return <el.Loading>Loading...</el.Loading>;
     return (
       <el.Terminal>
-        <el.Titlebar>{cwd.origin}</el.Titlebar>
-        <History history={this.state.history} home={home} />
+        <el.Titlebar>{env.cwd.origin}</el.Titlebar>
+        <History history={this.state.history} home={env.home} />
         <el.Seperator />
         <Prompt
           history={this.state.history}
           onSubmit={this.onSubmit}
           isHome={isHome}
-          url={cwd}
+          url={env.cwd}
         />
       </el.Terminal>
     );
